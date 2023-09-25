@@ -29,6 +29,7 @@ pipeline {
         }
     stage('env') {
         steps {
+                sh "echo vinay"
                 sh "echo Sonar password: ${env.SONAR_PASSWORD}"
               }
           }
