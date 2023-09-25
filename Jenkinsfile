@@ -31,7 +31,7 @@ pipeline {
     stage('env') {
         steps {
                 sh "echo vinay"
-                sh "SONAR_PWD: $SONAR_PWD"
+                echo "SONAR_PWD: $SONAR_PWD"
               }
           }
 
