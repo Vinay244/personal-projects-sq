@@ -11,7 +11,7 @@ pipeline {
     environment {
         //GITHUB_TOKEN = credentials('afdcc8c7-083e-4836-b577-3a24ceaca338')
         GITHUB_TOKEN = credentials('nilart-github')
-        SONARQUBE_TOKEN = credentials('SONAR_PWD')
+        SONAR_PWD = credentials('SONAR_PWD')
     }
     options {
         buildDiscarder(logRotator(artifactDaysToKeepStr: '30', artifactNumToKeepStr: '5', daysToKeepStr: '30', numToKeepStr: '5'))
@@ -31,7 +31,7 @@ pipeline {
     stage('env') {
         steps {
                 sh "echo vinay"
-                sh "echo Sonar password: ${env.SONAR_PWD}"
+                sh "SONAR_PWD: $SONAR_PWD"
               }
           }
 
