@@ -27,14 +27,7 @@ pipeline {
                 sh "mvn install"
             }
         }
-
-        stage('env') {
-    steps {
-        sh "echo SONAR_PASSWORD: $SONAR_PASSWORD"
-          }
-        }
-
-
+        
     stage('Sonar Scan placeholder'){
            steps {
                 sh "mvn sonar:sonar"
