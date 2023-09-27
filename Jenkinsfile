@@ -31,7 +31,7 @@ pipeline {
     stage('env') {
         steps {
                 sh "echo vinay"
-                echo "SONAR_PWD: $SONAR_PWD"
+                echo "Sonarqube-password: $SONAR_PWD"
               }
           }
 
