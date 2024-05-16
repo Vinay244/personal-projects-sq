@@ -33,7 +33,7 @@ pipeline {
          //        sh "mvn sonar:sonar"
 
          //   }
-         // }
+          }
 
     stage('Build docker image'){
            steps {
