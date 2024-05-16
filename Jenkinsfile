@@ -28,68 +28,41 @@ pipeline {
             }
         }
         
-    // Stage for Sonar Scan (placeholder)
+        // Stage for Sonar Scan (placeholder)
         stage('Sonar Scan placeholder') {
             // Commented out steps block to make it visible but not execute any commands
             // steps {
             //     sh "mvn sonar:sonar"
             // }
         }
-    stage('Build docker image'){
+
+        stage('Build docker image') {
            steps {
-                sh " docker build -t personalproject ."
+                sh "docker build -t personalproject ."
                 sh "docker tag  personalproject shubh9975/personal-project:v6.6.6"
            }
-         }
+        }
 
-    stage('Docker login and push') {
+        stage('Docker login and push') {
             steps {
                 sh "docker login --username shubh9975 --password $DOCKERHUB_TOKEN"
                 sh "docker push shubh9975/personal-project:v6.6.6"
-
             }
-         }
-    stage('Depoly microservice via k8s yaml on k8s setup via ansible') {
+        }
+        
+        stage('Depoly microservice via k8s yaml on k8s setup via ansible') {
             steps {
                 sh "ansible-playbook deployment/tests/test.yml -vvv"
            }
          }
+    }
   
-}
-    post
-     {
-       failure 
-       {
+    post {
+       failure {
            slackSend message:"Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
         }
-         success {
+        success {
            slackSend message:"Build deployed successfully - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
          }
     }
-    
-    
-    
-    
-    
-    //post {
-        //always{
-         //   cleanWorkspace()
-            //print "hi"
-        //}
-        //success {
-            //emailext attachLog: true,
-                //body: 'Pipeline job ${JOB_NAME} success. Build URL: ${BUILD_URL}',
-                //recipientProviders: [[$class: 'CulpritsRecipientProvider']],
-                //subject: 'SUCCESS: Jenkins Job- ${JOB_NAME} Build No- ${BUILD_NUMBER}',
-                //to: 'shubham.tamboli@calsoftinc.com'
-        //}
-        //failure {
-            //emailext attachLog: true,
-                //body: 'Pipeline job ${JOB_NAME} failed. Build URL: ${BUILD_URL}',
-                //recipientProviders: [[$class: 'CulpritsRecipientProvider'], [$class: 'DevelopersRecipientProvider'], [$class: 'FailingTestSuspectsRecipientProvider'], [$class: 'UpstreamComitterRecipientProvider']],
-                //subject: 'FAILED: Jenkins Job- ${JOB_NAME} Build No- ${BUILD_NUMBER}',
-                //to: 'shubham.tamboli@calsoftinc.com'
-        //}
-    //}
 }
-
