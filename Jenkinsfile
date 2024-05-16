@@ -28,13 +28,13 @@ pipeline {
             }
         }
         
-    stage('Sonar Scan placeholder'){
-         //   steps {
-         //        sh "mvn sonar:sonar"
-
-         //   }
-          }
-
+    // Stage for Sonar Scan (placeholder)
+        stage('Sonar Scan placeholder') {
+            // Commented out steps block to make it visible but not execute any commands
+            // steps {
+            //     sh "mvn sonar:sonar"
+            // }
+        }
     stage('Build docker image'){
            steps {
                 sh " docker build -t personalproject ."
